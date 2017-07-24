@@ -1,4 +1,7 @@
-# Mail functionality
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import smtplib
+
 SENDER = "steffen.sauler@"
 FROM = ""
 MAILSERVER = "mail.server.com"
