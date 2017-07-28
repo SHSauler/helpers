@@ -13,8 +13,12 @@ def send_mail(recipients, inp_msg, inp_subject):
     msg = MIMEMultipart('alternative')
     msg['Subject'] = inp_subject
     msg['From'] = FROM
-    # Recipients are a list
-    msg['To'] = ", ".join(recipients)
+    
+    if isinstance(recipients, str):
+        msg['To'] = "{0}".format(recipients)
+    else:
+        msg['To'] = ", ".join(recipients)
+    
     msg["X-Priority"] = MSG_PRIORITY
 
     part1 = MIMEText("Message is HTML", "plaintext")
