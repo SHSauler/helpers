@@ -7,7 +7,7 @@ FROM = ""
 MAILSERVER = "mail.server.com"
 MSG_PRIORITY = '3'
 
-def send_mail(recipients, inp_msg, inp_subject):
+def sendmail(recipients, inp_msg, inp_subject, msg_priority=MSG_PRIORITY):
     """ Sends HTML mails """
 
     msg = MIMEMultipart('alternative')
@@ -19,7 +19,7 @@ def send_mail(recipients, inp_msg, inp_subject):
     else:
         msg['To'] = ", ".join(recipients)
     
-    msg["X-Priority"] = MSG_PRIORITY
+    msg["X-Priority"] = msg_priority
 
     part1 = MIMEText("Message is HTML", "plaintext")
     part2 = MIMEText(inp_msg, 'html')
@@ -28,5 +28,4 @@ def send_mail(recipients, inp_msg, inp_subject):
     msg.attach(part2)
 
     smtp_message = smtplib.SMTP(MAILSERVER)
-
     smtp_message.sendmail(SENDER, recipients, msg.as_string())
